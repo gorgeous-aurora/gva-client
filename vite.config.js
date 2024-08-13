@@ -1,10 +1,6 @@
 import * as path from 'path'
 import * as dotenv from 'dotenv'
 import * as fs from 'fs'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-import fullImportPlugin from './vitePlugin/fullImport/fullImport.js'
-import AutoImport from 'unplugin-auto-import/vite'
-import Components from 'unplugin-vue-components/vite'
 import vuePlugin from "@vitejs/plugin-vue";
 export default ({
  command,
@@ -72,22 +68,6 @@ export default ({
     esbuild,
     optimizeDeps,
     plugins: [vuePlugin()],
-  }
-
-
-  if (NODE_ENV === 'development') {
-    config.plugins.push(
-        fullImportPlugin()
-    )
-  } else {
-    config.plugins.push(AutoImport({
-          resolvers: [ElementPlusResolver()]
-        }),
-        Components({
-          resolvers: [ElementPlusResolver({
-            importStyle: 'sass'
-          })]
-        }))
   }
 
   return config
